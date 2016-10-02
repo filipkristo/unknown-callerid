@@ -11,7 +11,7 @@ namespace CallerIdLib.BLL
 {
     public class BackgroundTaskManager
     {
-        public const string BackgroundTaskEntryPoint = "CallerIDBackgroundTask.CallerIDBackgroundTask";
+        public const string BackgroundTaskEntryPoint = "CallerIDBackgroundTask.UnknownCallerIDBackgroundTask";
         public const string BackgroundTaskName = "CallerIDBackgroundTask";
 
         public IBackgroundTaskRegistration FindBackgroundTaskRegistration()

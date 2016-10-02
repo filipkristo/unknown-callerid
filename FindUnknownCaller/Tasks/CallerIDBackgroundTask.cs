@@ -11,7 +11,7 @@ using Windows.ApplicationModel.Calls.Provider;
 
 namespace Tasks
 {    
-    public sealed class SampleCallerIDBackgroundTask : IBackgroundTask
+    public sealed class UnknownCallerIDBackgroundTask : IBackgroundTask
     {
         private FindCallerId caller = new FindCallerId();
 
