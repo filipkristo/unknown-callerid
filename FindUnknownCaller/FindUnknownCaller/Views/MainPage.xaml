@@ -22,17 +22,12 @@
 
         <TextBlock x:Name="mainTextBlock" Margin="16,12,0,0"
                    RelativePanel.AlignLeftWithPanel="True"
-                   RelativePanel.Below="pageHeader" Text="Show unknown caller id" />
+                   RelativePanel.Below="pageHeader" Text="{Binding Status}" />
 
-        <Button x:Name="Register" Content="Registriraj" IsEnabled="{Binding IsRegisterEnabled}"
-                Margin="0, 20, 0, 0"
+        <Button x:Name="Settings" Content="Postavke" Command="{Binding OpenSettings}"
+                Margin="20, 20, 0, 0"
                 RelativePanel.AlignLeftWithPanel="True"
                 RelativePanel.Below="mainTextBlock"/>
-
-        <Button x:Name="UnRegister" Content="DeRegistriraj" IsEnabled="{Binding IsRegisterEnabled}"
-                Margin="0, 20, 0, 0"
-                RelativePanel.AlignLeftWithPanel="True"
-                RelativePanel.Below="Register"/>
 
     </RelativePanel>
 

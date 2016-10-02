@@ -13,8 +13,7 @@ namespace FindUnknownCaller.ViewModels
     {
         private BackgroundTaskManager btm = new BackgroundTaskManager();
 
-        public bool IsRegisterEnabled { get { return Get<bool>(); } set { Set(value); } }
-        public bool IsUnRegisterEnabled { get { return Get<bool>(); } set { Set(value); } }
+        public DelegateCommand OpenSettings => new DelegateCommand(() => btm.OpenSettings());
 
         public MainPageViewModel()
         {
@@ -23,7 +22,12 @@ namespace FindUnknownCaller.ViewModels
 
         public override async Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
-            await btm.RegisterTask();            
+            var result = await btm.RegisterTask();
+
+            if (btm.IsActive())
+                Status = "Sve OK";
+            else
+                Status = "Otvorite postavke";
         }
     }
 }

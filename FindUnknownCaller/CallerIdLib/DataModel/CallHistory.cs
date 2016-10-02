@@ -1,18 +1,19 @@
-﻿using System;
+﻿using SQLite.Net.Attributes;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace CallerIdLib.DataModel
 {
+    [Table("CallHistory")]
     public class CallHistory
     {
-        public Guid Id { get; set; }
+        [PrimaryKey, AutoIncrement]
+        public int Id { get; set; }
         public DateTime CreatedUtc { get; set; }
-
-        [Required]
+                
         [MaxLength(50)]
         public string PhoneNumber { get; set; }
 
@@ -24,8 +25,7 @@ namespace CallerIdLib.DataModel
         public bool Resolved { get; set; }
 
         public CallHistory()
-        {
-            Id = Guid.NewGuid();
+        {            
         }
     }
 }

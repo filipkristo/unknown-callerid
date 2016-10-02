@@ -15,13 +15,13 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="FindUnknownCaller.App">
-      <uap:VisualElements DisplayName="FindUnknownCaller.App" Square150x150Logo="Images\Square150x150Logo.png" Square44x44Logo="Images\Square44x44Logo.png" Description="Sample" BackgroundColor="transparent">
-        <uap:DefaultTile Wide310x150Logo="Images\Wide310x150Logo.png" Square310x310Logo="Images\Square310x310Logo.png" Square71x71Logo="Images\Square71x71Logo.png">
+      <uap:VisualElements DisplayName="UnknownCaller" Square150x150Logo="Images\Square150x150Logo.png" Square44x44Logo="Images\Square44x44Logo.png" Description="Sample" BackgroundColor="transparent">
+        <uap:DefaultTile Wide310x150Logo="Images\Wide310x150Logo.png" Square310x310Logo="Images\Square310x310Logo.png" Square71x71Logo="Images\Square71x71Logo.png" ShortName="UnknownCaller">
         </uap:DefaultTile>
         <uap:SplashScreen Image="Images\SplashScreen.png" />
       </uap:VisualElements>
       <Extensions>
-        <Extension Category="windows.backgroundTasks" EntryPoint="CallerIDBackgroundTask.UnknownCallerIDBackgroundTask">
+        <Extension Category="windows.backgroundTasks" EntryPoint="CallerIDBackgroundTask.SampleCallerIDBackgroundTask">
           <BackgroundTasks>
             <uap:Task Type="phoneCall" />
           </BackgroundTasks>

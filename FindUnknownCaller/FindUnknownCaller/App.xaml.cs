@@ -1,6 +1,7 @@
 using CallerIdLib.DataModel;
-using Microsoft.Data.Entity;
 using System;
+using System.Diagnostics;
+using System.IO;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml.Data;
@@ -13,16 +14,25 @@ namespace FindUnknownCaller
     [Bindable]
     sealed partial class App : Template10.Common.BootStrapper
     {
+        string path = Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, "CallHistory.sqlite");
+
         public App() { InitializeComponent(); }
 
         public override async Task OnInitializeAsync(IActivatedEventArgs args)
         {
-            await Task.CompletedTask;
+            using (var conn = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), path))
+            {
+                conn.CreateTable<CallHistory>();
 
-            //using (var db = new CallerContext())
-            //{
-            //    db.Database.Migrate();
-            //}
+                var a = conn.Table<CallHistory>();
+
+                foreach (var item in a)
+                {
+                    Debug.WriteLine($"Datum: {item.CreatedUtc} Phone: {item.PhoneNumber}, IsContact:{item.InContacts}");
+                }            
+            }                
+
+            await Task.CompletedTask;            
         }
 
         public override async Task OnStartAsync(StartKind startKind, IActivatedEventArgs args)

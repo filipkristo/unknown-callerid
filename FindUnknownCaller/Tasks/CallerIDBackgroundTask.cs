@@ -1,4 +1,5 @@
 ﻿using CallerIdLib.BLL;
+using CallerIdLib.DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,12 +10,12 @@ using Windows.ApplicationModel.Background;
 using Windows.ApplicationModel.Calls.Background;
 using Windows.ApplicationModel.Calls.Provider;
 
-namespace Tasks
+namespace CallerIDBackgroundTask
 {    
-    public sealed class UnknownCallerIDBackgroundTask : IBackgroundTask
+    public sealed class SampleCallerIDBackgroundTask : IBackgroundTask
     {
         private FindCallerId caller = new FindCallerId();
-
+        
         //
         // The Run method is the entry point of a background task.
         //
@@ -23,6 +24,8 @@ namespace Tasks
             taskInstance.Canceled += new BackgroundTaskCanceledEventHandler(OnCanceled);
             
             var deferral = taskInstance.GetDeferral();
+
+            var dal = new CallHistoryDAL();
 
             var callDetails = (PhoneCallOriginDataRequestTriggerDetails)taskInstance.TriggerDetails;
             var phoneNumber = callDetails.PhoneNumber;
@@ -34,8 +37,11 @@ namespace Tasks
 
                 if (phoneCallOrigin != null)
                     PhoneCallOriginManager.SetCallOrigin(callDetails.RequestId, phoneCallOrigin);
-            }            
+            }
 
+            dal.Insert(phoneNumber, exists, "", !exists);
+
+            dal.Dispose();
             deferral.Complete();
         }
 

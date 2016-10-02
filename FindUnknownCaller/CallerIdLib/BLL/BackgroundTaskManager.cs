@@ -11,8 +11,8 @@ namespace CallerIdLib.BLL
 {
     public class BackgroundTaskManager
     {
-        public const string BackgroundTaskEntryPoint = "CallerIDBackgroundTask.UnknownCallerIDBackgroundTask";
-        public const string BackgroundTaskName = "CallerIDBackgroundTask";
+        public const string BackgroundTaskEntryPoint = "CallerIDBackgroundTask.SampleCallerIDBackgroundTask";
+        public const string BackgroundTaskName = "SampleCallerIDBackgroundTask";
 
         public IBackgroundTaskRegistration FindBackgroundTaskRegistration()
         {
@@ -28,7 +28,7 @@ namespace CallerIdLib.BLL
 
         public async Task<bool> RegisterTask()
         {
-            if (FindBackgroundTaskRegistration() == null)
+            if (FindBackgroundTaskRegistration() != null)
                 return false;
 
             var access = await BackgroundExecutionManager.RequestAccessAsync();
