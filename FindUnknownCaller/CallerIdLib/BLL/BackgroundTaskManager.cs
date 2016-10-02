@@ -28,6 +28,9 @@ namespace CallerIdLib.BLL
 
         public async Task<bool> RegisterTask()
         {
+            if (FindBackgroundTaskRegistration() == null)
+                return false;
+
             var access = await BackgroundExecutionManager.RequestAccessAsync();
 
             if (access == BackgroundAccessStatus.AlwaysAllowed ||

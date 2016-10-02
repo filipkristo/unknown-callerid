@@ -1,3 +1,5 @@
+using CallerIdLib.DataModel;
+using Microsoft.Data.Entity;
 using System;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;
@@ -16,6 +18,11 @@ namespace FindUnknownCaller
         public override async Task OnInitializeAsync(IActivatedEventArgs args)
         {
             await Task.CompletedTask;
+
+            //using (var db = new CallerContext())
+            //{
+            //    db.Database.Migrate();
+            //}
         }
 
         public override async Task OnStartAsync(StartKind startKind, IActivatedEventArgs args)
