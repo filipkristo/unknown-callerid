@@ -10,5 +10,7 @@ namespace CallerIdLib.Model
     {
         public string Name { get; set; }
         public string Address { get; set; }
+
+        public Category Category { get; set; }
     }
 }

@@ -111,6 +111,7 @@
     <Compile Include="BLL\FindCallerId.cs" />
     <Compile Include="DAL\CallHistoryDAL.cs" />
     <Compile Include="DataModel\CallHistory.cs" />
+    <Compile Include="Model\Category.cs" />
     <Compile Include="Model\CallerId.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\CallerIdLib.rd.xml" />

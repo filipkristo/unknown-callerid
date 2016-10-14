@@ -32,30 +32,34 @@ namespace CallerIdLib.BLL
         {
             using (var client = new HttpClient())
             {
-                client.DefaultRequestHeaders.Add("User-Agent", "Fiddler");
+                client.DefaultRequestHeaders.Add("User-Agent", "UnknownCallerId");
 
                 var uri = $"http://www.imenik.hr/imenik/trazi/1/{phoneNumber}.html";
+                
                 var html = await client.GetStringAsync(uri);
+                var category = Category.Fizicka;
+                if (html.Contains("POSLOVNI SUBJEKT")) { category = Category.Pravna; }
 
                 html = html.Substring(html.IndexOf("list_naslov"));
-
+                
                 var name = html.Substring(html.IndexOf("href"));
 
                 name = name.Substring(name.IndexOf("\">") + 2);
                 name = name.Substring(0, name.IndexOf("</a")).Trim();
-
                 var adresa = html.Substring(html.IndexOf("adresa"));
-                adresa = adresa.Substring(adresa.IndexOf("nofollow\">") + 10);
+
+                adresa = adresa.Substring(adresa.IndexOf("href") + 10);
+                adresa = adresa.Substring(adresa.IndexOf("\">") + 10);
                 adresa = adresa.Substring(0, adresa.IndexOf("</a")).Trim();
 
                 return new CallerId
                 {
                     Name = name,
-                    Address = adresa.Substring(0, 10)
+                    Address = adresa,
+                    Category = category
                 };
             }
         }
-
 
     }
 }
