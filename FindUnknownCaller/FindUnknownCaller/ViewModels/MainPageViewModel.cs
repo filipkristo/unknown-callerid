@@ -11,9 +11,23 @@ namespace FindUnknownCaller.ViewModels
 {
     public class MainPageViewModel : BaseViewModel
     {
-        private BackgroundTaskManager btm = new BackgroundTaskManager();
+        private readonly BackgroundTaskManager btm = new BackgroundTaskManager();
 
         public DelegateCommand OpenSettings => new DelegateCommand(() => btm.OpenSettings());
+
+        public DelegateCommand AddTask => new DelegateCommand(async () =>
+        {
+            if (btm.FindBackgroundTaskRegistration() == null)
+                await btm.RegisterTask();
+
+            Refresh();
+        });
+
+        public DelegateCommand RemoveTask => new DelegateCommand(() =>
+        {            
+            btm.UnregisterTask();
+            Refresh();
+        });
 
         public MainPageViewModel()
         {
@@ -22,8 +36,12 @@ namespace FindUnknownCaller.ViewModels
 
         public override async Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
-            var result = await btm.RegisterTask();
+            Refresh();
+            await Task.CompletedTask;
+        }
 
+        private void Refresh()
+        {
             if (btm.IsActive())
                 Status = "Sve OK";
             else

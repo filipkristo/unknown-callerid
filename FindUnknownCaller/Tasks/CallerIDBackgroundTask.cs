@@ -54,8 +54,8 @@ namespace CallerIDBackgroundTask
                 var phoneCallOrigin = new PhoneCallOrigin();
                 phoneCallOrigin.DisplayName = callerId.Name;
                 phoneCallOrigin.Location = callerId.Address;
-                phoneCallOrigin.Category = "";
-                phoneCallOrigin.CategoryDescription = "";
+                phoneCallOrigin.Category = callerId.Category.ToString();
+                phoneCallOrigin.CategoryDescription = callerId.Category.ToString();
 
                 return phoneCallOrigin;
             }
